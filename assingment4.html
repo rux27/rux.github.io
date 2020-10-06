@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <title>Vega-Lite Bar Chart</title>
+    <meta charset="utf-8" />
+
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.16.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.16.8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.12.2"></script>
+
+    <style media="screen">
+      /* Add space between Vega-Embed links  */
+      .vega-actions a {
+        margin-right: 5px;
+      }
+    </style>
+  </head>
+  <body>
+      <h1><center>Assignment 4</center></h1>
+    <!-- Container for the visualization -->
+      <pre>          In this visualisation we can see that in the 1990s, the new buildings that were constructed were used 
+                   largely for assembly.That declined over the years and education purpose became more prominent in the recent years. 
+                   The other reasons that stand out are Dentention and Correction and Miscellaneous.
+               <b> What could be better in this visualisation?</b>
+                   This visualisation could be made better by:
+                   1. Picking most important uses to display in the form of a line graph to see the trend.
+                   2. Doing a cumulative sum instead of sum to see the growth over the years.
+ 
+  </pre>
+         
+       
+  
+    <div id="vis"></div>
+    <script>
+      // Assign the specification to a local variable vlSpec.
+      var vlSpec = {
+        
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+          "title":"Total Square Footage by usage per year",
+    "data": {"url": "https://uiuc-ischool-dataviz.github.io/spring2019online/week02/building_inventory.csv"},
+"transform":[{
+  "filter": {"field": "Year Constructed", "gt": 1990},
+
+
+  "groupby":["County"] 
+}],
+    "mark": "bar",
+    "encoding": {
+        "x": {"field": "Year Constructed", "type": "nominal" },
+        "y": {"aggregate":"sum","field": "Square Footage", "type": "quantitative","title":"Sum of Square Footage per year"},
+        "color": {"field": "Usage Description", "type": "nominal"}
+    }  
+
+};
+
+      // Embed the visualization in the container with id `vis`
+      vegaEmbed('#vis', vlSpec);
+    </script>
+  
+  </body>
+</html>
